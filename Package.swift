@@ -1,23 +1,23 @@
-// swift-tools-version: 6.1 
-
+// swift-tools-version: 5.9
 import PackageDescription
 
 let package = Package(
-    name: "LiveTranslationKit", 
+    name: "LiveTranslationKit",
     platforms: [
-        .iOS(.v15), 
+        .iOS(.v15),
         .macOS(.v12)
     ],
     products: [
         .library(
             name: "LiveTranslationKit",
-            targets: ["LiveTranslationKit"]),
+            targets: ["LiveTranslationKit"]
+        ),
     ],
     targets: [
         .target(
             name: "LiveTranslationKit",
             dependencies: [],
             path: "Sources/LiveTranslationKit"
-        ),
+        )
     ]
 )
