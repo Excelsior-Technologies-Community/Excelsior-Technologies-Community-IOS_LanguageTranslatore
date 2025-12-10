@@ -1,10 +1,12 @@
+// swift-tools-version: 6.1 
+
 import PackageDescription
 
 let package = Package(
-    name: "LiveTranslationKit", // Use this name, or whatever you put in Package.swift
+    name: "LiveTranslationKit", 
     platforms: [
         .iOS(.v15), 
-        .macOS(.v12) // Or whatever platforms you need
+        .macOS(.v12)
     ],
     products: [
         .library(
