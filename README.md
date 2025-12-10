@@ -1,115 +1,196 @@
  
-# `LiveTranslationKit` 🌎
+# 🌍 **LiveTranslationKit**
 
-A lightweight, SwiftUI-focused library for adding **live, dynamic translation** to your iOS application without requiring an external API key. Perfect for hobby projects, rapid prototyping, and demonstrating live localization features.
+### *Instant Multi-Language Translation for SwiftUI — No API Key Needed*
 
-### Features
+`LiveTranslationKit` enables **real-time dynamic translation** inside any SwiftUI app.
+No restart required, no API key needed, no JSON localization setup.
 
-  * **Live Translation:** Instantly translates any string literal (or variable) using an internal, public web service endpoint.
-  * **Zero API Key Required:** Uses a public Google service endpoint (for educational/non-enterprise use).
-  * **SwiftUI Native:** Provides a simple `LiveText` view that replaces `Text`.
-  * **Caching:** Translated phrases are cached to minimize network calls and speed up performance.
+Perfect for apps that require:
 
------
+* 🔄 Live language switching
+* 🌐 Multi-language UI
+* 💬 Auto-translated text
+* 🚀 Quick prototyping of international apps
 
-## 🚀 Installation (Adding the Dependency)
+---
 
-You can add `LiveTranslationKit` to your project using the Swift Package Manager (SPM).
+# 📦 **Installation (Swift Package Manager)**
 
-### Steps:
+Add the package using SPM:
 
-1.  In Xcode, open your project.
-2.  Go to **File** \> **Add Packages...**
-3.  In the search bar, paste the URL for this repository:
-    ```
-    [PASTE YOUR GIT REPOSITORY URL HERE, e.g., https://github.com/nomanbelim/LiveTranslationKit.git]
-    ```
-4.  Set the **Dependency Rule** to **Up to Next Major Version**.
-5.  Click **Add Package**.
+### **Repository URL**
 
------
+```
+https://github.com/Excelsior-Technologies-Community/Excelsior-Technologies-Community-IOS_LanguageTranslatore
+```
 
-## 🛠️ Usage Guide
+### Steps
 
-### 1\. Import the Module
+1. Open Xcode
+2. Go to **File → Add Packages…**
+3. Paste the URL above
+4. Choose **Up to Next Major Version**
+5. Add to your project
 
-In any Swift file where you use the translation components (like your `ContentView.swift`), you must import the module:
+---
+
+# 🚀 **Getting Started**
+
+Import the module:
 
 ```swift
 import SwiftUI
 import LiveTranslationKit
 ```
 
-### 2\. The Language Manager
+---
 
-The `LanguageManager` is the central hub for selecting the active language.
+# 🔤 **LiveText — Auto-translating Text View**
 
-| Property | Description |
-| :--- | :--- |
-| `LanguageManager.shared` | The singleton instance. |
-| `currentLanguage` | The currently selected language (`AppLanguage` enum). |
-| `setLanguage(lang: AppLanguage)` | **Crucial:** Call this function to change the language globally. |
-
-**Example: Setting up the Language Picker**
-
-The recommended way to change the language is by binding the picker selection to the `LanguageManager`.
+Use `LiveText` instead of `Text()`:
 
 ```swift
-struct ContentView: View {
-    // 1. Observe the shared manager
-    @ObservedObject var langManager = LanguageManager.shared 
-     
-    var body: some View {
-        VStack {
-            Picker("Language", selection: Binding(
-                get: { langManager.currentLanguage },
-                set: { langManager.setLanguage($0) }
-            )) {
-                // Iterate over the included languages
-                ForEach(AppLanguage.allCases) { lang in
-                    Text(lang.displayName).tag(lang)
-                }
-            }
-            .pickerStyle(.segmented)
-            
-            Divider()
-            
-            // ... your LiveText components below
+LiveText("Hello, how are you?")
+```
+
+Whenever the user changes the app’s language, all `LiveText` views automatically:
+
+* Detect language change
+* Fetch translated text
+* Update smoothly with animation
+
+---
+
+# 🌐 **Required: Add a Language Picker to Your App UI**
+
+Every app using this package **must provide a way for users to select a language**.
+
+The recommended method is using a SwiftUI picker.
+
+---
+
+## ✅ **Option 1 — Language Picker (Recommended)**
+
+Add this to your settings screen or app header:
+
+```swift
+@ObservedObject var langManager = LanguageManager.shared
+
+Picker("Language", selection: Binding(
+    get: { langManager.currentLanguage },
+    set: { langManager.setLanguage($0) }
+)) {
+    ForEach(AppLanguage.allCases) { lang in
+        Text(lang.displayName).tag(lang)
+    }
+}
+.pickerStyle(.menu)
+```
+
+✔ UI updates instantly
+✔ No reload required
+✔ Works across all `LiveText` views
+
+---
+
+## ✅ **Option 2 — Language Selector Button (Alternative)**
+
+If you prefer a button instead of a picker:
+
+```swift
+@ObservedObject var langManager = LanguageManager.shared
+
+Menu {
+    ForEach(AppLanguage.allCases) { lang in
+        Button(lang.displayName) {
+            langManager.setLanguage(lang)
         }
+    }
+} label: {
+    HStack {
+        Image(systemName: "globe")
+        Text(langManager.currentLanguage.displayName)
     }
 }
 ```
 
-### 3\. Using `LiveText` (The Magic)
+This creates:
 
-To get live translation for any arbitrary string, simply replace Apple's standard `Text()` view with the `LiveText()` view.
+* A button with a globe icon
+* A language dropdown menu
+* One-tap language switching
 
-When the language selection changes via the `LanguageManager`, all `LiveText` views will automatically fetch and display the translated content.
+---
+
+# 🧠 **Full Example (Working Code)**
 
 ```swift
-// This text will be translated instantly based on the selected language.
-LiveText("I can type anything here and it will work.")
-    .font(.title3)
+struct ContentView: View {
+    @ObservedObject var langManager = LanguageManager.shared
 
-LiveText("My name is noman")
-    .foregroundColor(.secondary)
+    var body: some View {
+        VStack(spacing: 20) {
+
+            // Language Picker
+            Picker("Language", selection: Binding(
+                get: { langManager.currentLanguage },
+                set: { langManager.setLanguage($0) }
+            )) {
+                ForEach(AppLanguage.allCases) { lang in
+                    Text(lang.displayName).tag(lang)
+                }
+            }
+            .pickerStyle(.menu)
+
+            // Live Translation
+            LiveText("Noman Belim")
+            LiveText("Hi, how are you?")
+        }
+        .padding()
+    }
+}
 ```
 
------
+---
 
-## ⚠️ Important Note on Network Security
+# 🧩 **Package Architecture**
 
-This package performs network requests in the background. If you encounter errors, you may need to adjust your app's security settings.
+| File                    | Purpose                                        |
+| ----------------------- | ---------------------------------------------- |
+| `LiveText.swift`        | SwiftUI auto-translating Text view             |
+| `LanguageManager.swift` | Stores selected language, notifies UI          |
+| `FreeTranslator.swift`  | Handles translation via public Google endpoint |
 
-If the translation fails silently, you must add the following security exception to your project's **`Info.plist`** file:
+---
 
-| Key | Type | Value |
-| :--- | :--- | :--- |
-| `App Transport Security Settings` | Dictionary | |
-| ↳ `Allow Arbitrary Loads` | Boolean | `YES` |
+# ⚠️ Network Permissions
 
-This ensures iOS does not block the requests to the public Google translation endpoint.
+Add this if translations fail silently:
 
------
+```
+App Transport Security Settings
+    Allow Arbitrary Loads → YES
+```
 
-*Enjoy your new live translation feature\!*
+---
+
+# 🌍 Supported Languages
+
+Default:
+
+* English (`en`)
+* Hindi (`hi`)
+* Spanish (`es`)
+* French (`fr`)
+* German (`de`)
+* Japanese (`ja`)
+
+You can add unlimited languages by editing `AppLanguage`.
+
+---
+
+# ❤️ Contributions
+
+Improvements and feature additions are welcome.
+ 
