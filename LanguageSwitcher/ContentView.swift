@@ -7,73 +7,49 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var languageManager = LanguageManager.shared
-    
-    var body: some View {
-        NavigationView {
-            VStack(spacing: 30) {
-                
-                // --- Language Switcher ---
-                HStack {
-                    Text("Select:")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                    
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            ForEach(AppLanguage.allCases) { lang in
-                                Button(action: {
-                                    languageManager.setLanguage(lang)
-                                }) {
-                                    Text(lang.displayName)
-                                        .padding(.vertical, 8)
-                                        .padding(.horizontal, 16)
-                                        .background(languageManager.currentLanguage == lang ? Color.blue : Color.gray.opacity(0.2))
-                                        .foregroundColor(languageManager.currentLanguage == lang ? .white : .black)
-                                        .cornerRadius(20)
-                                }
-                            }
-                        }
-                    }
-                }
-                .padding()
-                
-                Divider()
-                
-                // --- Dynamic Content ---
-                VStack(spacing: 20) {
-                    // Use LiveText instead of Text
-                    LiveText("How are you?")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                    
-                    LiveText("Welcome")
-                        .font(.title2)
-                        .foregroundColor(.secondary)
-                    
-                    // Example Card
-                    VStack {
-                        Image(systemName: "globe")
-                            .font(.system(size: 50))
-                            .foregroundColor(.blue)
-                            .padding()
-                        
-                        LiveText("This is a dynamic text")
-                            .multilineTextAlignment(.center)
-                    }
-                    .padding()
-                    .background(Color.blue.opacity(0.1))
-                    .cornerRadius(15)
-                }
-                .padding()
-                
-                Spacer()
-            }
-            .navigationTitle("Language App")
-        }
-    }
-}
- 
+    @ObservedObject var langManager = LanguageManager.shared
+     
+     var body: some View {
+         VStack(spacing: 20) {
+             
+             // 1. Language Picker
+             HStack {
+                 Text("Change Language:")
+                 Picker("Lang", selection: Binding(
+                     get: { langManager.currentLanguage },
+                     set: { langManager.setLanguage($0) }
+                 )) {
+                     ForEach(AppLanguage.allCases) { lang in
+                         Text(lang.displayName).tag(lang)
+                     }
+                 }
+             }
+             .padding()
+             .background(Color.gray.opacity(0.2))
+             
+             Divider()
+             
+             // 2. THE USER'S OWN TEXT
+             // They just write LiveText and it works instantly
+             
+             LiveText("Demo Text")
+                 .font(.title)
+             LiveText("I am going there")
+                 .font(.title)
+             
+             LiveText("My name is noman")
+                 .font(.title)
+             
+             LiveText("This project is amazing because it translates live.")
+                 .padding()
+             
+             LiveText("I can type anything here and it will work.")
+                 .foregroundColor(.blue)
+             
+             Spacer()
+         }
+     }
+ }
 #Preview {
     ContentView()
 }
