@@ -1,5 +1,5 @@
  
-# 🌍 **LiveTranslationKit**
+#   **LiveTranslationKit**
 
 ### *Instant Multi-Language Translation for SwiftUI — No API Key Needed*
 
@@ -8,14 +8,14 @@ No restart required, no API key needed, no JSON localization setup.
 
 Perfect for apps that require:
 
-* 🔄 Live language switching
-* 🌐 Multi-language UI
-* 💬 Auto-translated text
-* 🚀 Quick prototyping of international apps
+*   Live language switching
+*   Multi-language UI
+*   Auto-translated text
+*   Quick prototyping of international apps
 
 ---
 
-# 📦 **Installation (Swift Package Manager)**
+#   **Installation (Swift Package Manager)**
 
 Add the package using SPM:
 
@@ -35,7 +35,7 @@ https://github.com/Excelsior-Technologies-Community/Excelsior-Technologies-Commu
 
 ---
 
-# 🚀 **Getting Started**
+#   **Getting Started**
 
 Import the module:
 
@@ -46,7 +46,7 @@ import LiveTranslationKit
 
 ---
 
-# 🔤 **LiveText — Auto-translating Text View**
+#   **LiveText — Auto-translating Text View**
 
 Use `LiveText` instead of `Text()`:
 
@@ -62,7 +62,7 @@ Whenever the user changes the app’s language, all `LiveText` views automatical
 
 ---
 
-# 🌐 **Required: Add a Language Picker to Your App UI**
+#   **Required: Add a Language Picker to Your App UI**
 
 Every app using this package **must provide a way for users to select a language**.
 
@@ -70,7 +70,7 @@ The recommended method is using a SwiftUI picker.
 
 ---
 
-## ✅ **Option 1 — Language Picker (Recommended)**
+##   **Option 1 — Language Picker (Recommended)**
 
 Add this to your settings screen or app header:
 
@@ -94,7 +94,7 @@ Picker("Language", selection: Binding(
 
 ---
 
-## ✅ **Option 2 — Language Selector Button (Alternative)**
+##   **Option 2 — Language Selector Button (Alternative)**
 
 If you prefer a button instead of a picker:
 
@@ -123,7 +123,7 @@ This creates:
 
 ---
 
-# 🧠 **Full Example (Working Code)**
+#   **Full Example (Working Code)**
 
 ```swift
 struct ContentView: View {
@@ -154,7 +154,7 @@ struct ContentView: View {
 
 ---
 
-# 🧩 **Package Architecture**
+#   **Package Architecture**
 
 | File                    | Purpose                                        |
 | ----------------------- | ---------------------------------------------- |
@@ -164,7 +164,7 @@ struct ContentView: View {
 
 ---
 
-# ⚠️ Network Permissions
+#   Network Permissions
 
 Add this if translations fail silently:
 
@@ -175,7 +175,7 @@ App Transport Security Settings
 
 ---
 
-# 🌍 Supported Languages
+#   Supported Languages
 
 Default:
 
@@ -190,7 +190,7 @@ You can add unlimited languages by editing `AppLanguage`.
 
 ---
 
-# ❤️ Contributions
+#   Contributions
 
 Improvements and feature additions are welcome.
  
