@@ -1,20 +1,7 @@
  
 #   **LiveTranslationKit**
 
-### *Instant Multi-Language Translation for SwiftUI — No API Key Needed*
-
-`LiveTranslationKit` enables **real-time dynamic translation** inside any SwiftUI app.
-No restart required, no API key needed, no JSON localization setup.
-
-Perfect for apps that require:
-
-*   Live language switching
-*   Multi-language UI
-*   Auto-translated text
-*   Quick prototyping of international apps
-
----
-
+ 
 #   **Installation (Swift Package Manager)**
 
 Add the package using SPM:
